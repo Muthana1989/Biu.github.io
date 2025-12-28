@@ -1,108 +1,163 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>BiU | Bilgi Teknolojileri & İletişim Uzmanları</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>BiU | Bilgi Teknolojileri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- =========================
+       STYLE / CSS
+       ========================= -->
   <style>
-    body {
+    /* =========================
+       GENERAL SETTINGS
+       Genel Ayarlar
+       ========================= */
+    * {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
       background:
-        linear-gradient(120deg, rgba(15,23,42,0.95), rgba(2,6,23,0.95)),
+        linear-gradient(
+          rgba(10, 20, 40, 0.85),
+          rgba(5, 10, 25, 0.95)
+        ),
         repeating-linear-gradient(
           45deg,
-          rgba(56,189,248,0.05),
-          rgba(56,189,248,0.05) 1px,
+          rgba(255,255,255,0.03) 0px,
+          rgba(255,255,255,0.03) 1px,
           transparent 1px,
-          transparent 14px
+          transparent 12px
         );
       color: #e5e7eb;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1000px;
-      padding: 40px;
       text-align: center;
     }
 
+    /* =========================
+       LANGUAGE SWITCH
+       Dil Değiştirme Butonları
+       ========================= */
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    .lang-switch button {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      margin-left: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .lang-switch button.active {
+      background: #38bdf8;
+      color: #000;
+    }
+
+    /* =========================
+       CONTAINER
+       Ana Alan
+       ========================= */
+    .container {
+      max-width: 900px;
+      padding: 40px;
+    }
+
     h1 {
-      font-size: 3rem;
+      font-size: 64px;
       color: #38bdf8;
       margin-bottom: 10px;
+      letter-spacing: 3px;
     }
 
     h2 {
+      font-size: 22px;
       font-weight: normal;
-      color: #cbd5f5;
       margin-bottom: 30px;
+      color: #cbd5f5;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 17px;
       line-height: 1.8;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
 
+    /* =========================
+       TAGS
+       Hizmet Etiketleri
+       ========================= */
     .tags span {
       display: inline-block;
       margin: 6px;
-      padding: 10px 16px;
-      background: #1e293b;
-      border-radius: 20px;
-      font-size: 0.9rem;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 25px;
+      font-size: 14px;
     }
 
+    /* =========================
+       BUTTONS
+       ========================= */
     .buttons {
-      margin-top: 30px;
+      margin: 30px 0;
     }
 
-    .btn {
+    .buttons a {
       display: inline-block;
-      margin: 10px;
-      padding: 12px 26px;
+      margin: 8px;
+      padding: 12px 28px;
       border-radius: 30px;
       background: linear-gradient(135deg, #38bdf8, #2563eb);
       color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      transition: 0.3s;
     }
 
-    .lang-switch {
-      position: fixed;
-      top: 20px;
-      right: 20px;
+    .buttons a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(56,189,248,0.35);
     }
 
-    .lang-switch button {
-      background: #1e293b;
-      color: #e5e7eb;
-      border: none;
-      padding: 8px 14px;
-      margin-left: 6px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
+    /* =========================
+       PROJECTS
+       Projeler
+       ========================= */
     .projects {
-      margin-top: 50px;
+      margin-top: 40px;
+    }
+
+    .projects h3 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: #38bdf8;
     }
 
     .projects a {
       display: block;
       color: #38bdf8;
       text-decoration: none;
-      margin: 8px 0;
+      margin: 6px 0;
     }
 
     footer {
       margin-top: 40px;
-      font-size: 0.9rem;
+      font-size: 13px;
       color: #94a3b8;
     }
   </style>
@@ -110,82 +165,113 @@
 
 <body>
 
-<div class="lang-switch">
-  <button onclick="setLang('tr')">TR</button>
-  <button onclick="setLang('en')">EN</button>
-</div>
-
-<div class="container">
-
-  <h1>BiU</h1>
-
-  <h2 id="title">
-    Bilgi Teknolojileri & İletişim Uzmanları
-  </h2>
-
-  <p id="desc1">
-    BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri
-    alanlarında uzmanlaşmış profesyonel bir teknoloji kimliğidir.
-  </p>
-
-  <p id="desc2">
-    Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir
-    sistemler tasarlıyor ve geliştiriyoruz.
-  </p>
-
-  <div class="tags">
-    <span>Yazılım Mühendisliği</span>
-    <span>Web Geliştirme</span>
-    <span>Otomasyon</span>
-    <span>API Entegrasyonu</span>
-    <span>Sistem Optimizasyonu</span>
+  <!-- =========================
+       LANGUAGE SWITCH
+       ========================= -->
+  <div class="lang-switch">
+    <button id="btn-tr" class="active" onclick="setLanguage('tr')">TR</button>
+    <button id="btn-en" onclick="setLanguage('en')">EN</button>
   </div>
 
-  <div class="buttons">
-    <a class="btn" href="https://wa.me/905392980597" target="_blank">WhatsApp</a>
-    <a class="btn" href="https://github.com/BiU-it" target="_blank">GitHub</a>
+  <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+  <div class="container">
+    <h1>BiU</h1>
+
+    <h2 id="title">
+      Bilgi Teknolojileri & İletişim Uzmanları
+    </h2>
+
+    <p id="desc1">
+      BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında
+      uzmanlaşmış profesyonel bir teknoloji kimliğidir.
+    </p>
+
+    <p id="desc2">
+      Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir sistemler
+      tasarlıyor ve geliştiriyoruz.
+    </p>
+
+    <div class="tags">
+      <span id="tag1">Yazılım Mühendisliği</span>
+      <span id="tag2">Web Geliştirme</span>
+      <span id="tag3">Otomasyon</span>
+      <span id="tag4">API Entegrasyonu</span>
+      <span id="tag5">Sistem Optimizasyonu</span>
+    </div>
+
+    <div class="buttons">
+      <a href="https://wa.me/905392980597" target="_blank">WhatsApp</a>
+      <a href="https://github.com/BiU-it" target="_blank">GitHub</a>
+    </div>
+
+    <div class="projects">
+      <h3 id="projects-title">Projelerim</h3>
+      <a href="https://alikahyakarot.com" target="_blank">alikahyakarot.com</a>
+      <a href="https://ilyaskarot.com" target="_blank">ilyaskarot.com</a>
+      <a href="http://gucluspanzet.com" target="_blank">gucluspanzet.com</a>
+      <a href="http://anahtarpartisakarya.org" target="_blank">anahtarpartisakarya.org</a>
+    </div>
+
+    <footer>
+      © BiU Ekibi
+    </footer>
   </div>
 
-  <div class="projects">
-    <h2 id="projectsTitle">Projelerim</h2>
+  <!-- =========================
+       SCRIPT / JS
+       ========================= -->
+  <script>
+    /* =========================
+       LANGUAGE DATA
+       Dil Metinleri
+       ========================= */
+    const content = {
+      tr: {
+        title: "Bilgi Teknolojileri & İletişim Uzmanları",
+        desc1: "BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında uzmanlaşmış profesyonel bir teknoloji kimliğidir.",
+        desc2: "Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir sistemler tasarlıyor ve geliştiriyoruz.",
+        tags: [
+          "Yazılım Mühendisliği",
+          "Web Geliştirme",
+          "Otomasyon",
+          "API Entegrasyonu",
+          "Sistem Optimizasyonu"
+        ],
+        projects: "Projelerim"
+      },
+      en: {
+        title: "Information Technology & Communication Specialists",
+        desc1: "BiU is a professional technology identity focused on software engineering, web development, and automation solutions.",
+        desc2: "We design efficient, reliable, and scalable systems for modern needs.",
+        tags: [
+          "Software Engineering",
+          "Web Development",
+          "Automation",
+          "API Integration",
+          "System Optimization"
+        ],
+        projects: "My Projects"
+      }
+    };
 
-    <a href="https://alikahyakarot.com/" target="_blank">alikahyakarot.com</a>
-    <a href="https://ilyaskarot.com/" target="_blank">ilyaskarot.com</a>
-    <a href="http://gucluspanzet.com/" target="_blank">gucluspanzet.com</a>
-    <a href="http://anahtarpartisakarya.org/" target="_blank">
-      anahtarpartisakarya.org
-    </a>
-  </div>
+    function setLanguage(lang) {
+      document.getElementById("title").innerText = content[lang].title;
+      document.getElementById("desc1").innerText = content[lang].desc1;
+      document.getElementById("desc2").innerText = content[lang].desc2;
 
-  <footer>
-    © BiU Ekibi
-  </footer>
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById("tag" + i).innerText = content[lang].tags[i - 1];
+      }
 
-</div>
+      document.getElementById("projects-title").innerText = content[lang].projects;
 
-<script>
-  const texts = {
-    tr: {
-      title: "Bilgi Teknolojileri & İletişim Uzmanları",
-      desc1: "BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında uzmanlaşmış profesyonel bir teknoloji kimliğidir.",
-      desc2: "Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir sistemler tasarlıyor ve geliştiriyoruz.",
-      projects: "Projelerim"
-    },
-    en: {
-      title: "Information Technology & Communication Specialists",
-      desc1: "BiU is a professional technology identity focused on software engineering, web development, and automation solutions.",
-      desc2: "We design efficient, reliable, and scalable systems for modern needs.",
-      projects: "My Projects"
+      document.getElementById("btn-tr").classList.remove("active");
+      document.getElementById("btn-en").classList.remove("active");
+      document.getElementById("btn-" + lang).classList.add("active");
     }
-  };
-
-  function setLang(lang) {
-    document.getElementById("title").innerText = texts[lang].title;
-    document.getElementById("desc1").innerText = texts[lang].desc1;
-    document.getElementById("desc2").innerText = texts[lang].desc2;
-    document.getElementById("projectsTitle").innerText = texts[lang].projects;
-  }
-</script>
+  </script>
 
 </body>
 </html>
