@@ -2,313 +2,251 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>BiU | Technology Company</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiU | Technology Company</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <style>
-  #bgCanvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  opacity:0.45;
-}
-
-/* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: "Segoe UI", sans-serif;
-}
-<canvas id="bgCanvas"></canvas>
-
-<script>
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-
-function resize(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-const symbols = [];
-const count = 90;
-
-for(let i=0;i<count;i++){
-  symbols.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    v: 0.3 + Math.random()*0.6,
-    char: Math.random()>0.5 ? "0" : "1",
-    r: 1 + Math.random()*2
-  });
-}
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  ctx.strokeStyle = "rgba(79,195,255,0.08)";
-  ctx.fillStyle   = "rgba(79,195,255,0.45)";
-  ctx.font = "13px monospace";
-
-  symbols.forEach(s=>{
-    ctx.fillText(s.char, s.x, s.y);
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.stroke();
-
-    s.y += s.v;
-    if(s.y > canvas.height){
-      s.y = -10;
-      s.x = Math.random()*canvas.width;
-      s.char = Math.random()>0.5 ? "0" : "1";
-    }
-  });
-
-  requestAnimationFrame(draw);
-}
-draw();
-</script>
-
-/* ================= BACKGROUND ================= */
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  min-height:100vh;
-  color:#eaf6ff;
-  background: linear-gradient(120deg,#020817,#061c33,#020817);
-  background-size: 400% 400%;
-  animation: bgMove 16s ease infinite;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#050b16;
+  color:#fff;
   overflow-x:hidden;
 }
 
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* خطوط متحركة */
-body::before{
-  content:"";
+/* ===== BACKGROUND CANVAS ===== */
+#bgCanvas{
   position:fixed;
   inset:0;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(255,255,255,0.03),
-      rgba(255,255,255,0.03) 1px,
-      transparent 1px,
-      transparent 18px
-    );
-  animation: linesMove 25s linear infinite;
-  pointer-events:none;
+  z-index:-1;
 }
 
-@keyframes linesMove{
-  from{background-position:0 0}
-  to{background-position:400px 400px}
-}
-
-/* ================= TOP BAR ================= */
-.top-bar{
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:20px;
+  left:20px;
+  right:20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:22px 40px;
+  z-index:10;
 }
 
-/* LOGO */
-.logo span{
-  font-size:42px;
-  font-weight:800;
-  color:#4fc3ff;
-  border:3px solid #4fc3ff;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-box{
+  width:64px;
+  height:64px;
   border-radius:14px;
-  padding:6px 18px;
-  box-shadow:0 0 25px rgba(79,195,255,.55);
+  background:#4fc3ff;
+  color:#000;
+  font-weight:bold;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 25px rgba(79,195,255,.8);
 }
 
-/* LANG SWITCH */
-.lang-switch button{
-  background:#0b203a;
+.lang button{
+  background:#1b2536;
   color:#fff;
   border:1px solid #4fc3ff;
-  padding:6px 14px;
+  padding:6px 12px;
   border-radius:8px;
-  cursor:pointer;
   margin-left:6px;
+  cursor:pointer;
 }
-
-.lang-switch .active{
+.lang .active{
   background:#4fc3ff;
   color:#000;
 }
 
-/* ================= HERO ================= */
-.hero{
+/* ===== MAIN ===== */
+main{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  padding:90px 20px 40px;
+  padding:120px 20px;
 }
 
-.hero h1{
-  font-size:64px;
+h1{
+  font-size:56px;
   color:#4fc3ff;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
-
-.hero h2{
+h2{
   font-size:22px;
-  margin-bottom:20px;
+  margin-bottom:30px;
+  opacity:.9;
 }
 
-.hero p{
-  max-width:900px;
-  margin:0 auto 14px;
-  line-height:1.7;
+p{
+  max-width:760px;
+  margin:0 auto 20px;
+  line-height:1.8;
+  opacity:.85;
 }
 
-/* TAGS */
 .tags{
   display:flex;
   flex-wrap:wrap;
+  gap:10px;
   justify-content:center;
-  gap:12px;
   margin:30px 0;
 }
-
-.tags span{
-  background:rgba(255,255,255,.06);
+.tag{
+  background:#111a2b;
   padding:10px 18px;
-  border-radius:30px;
+  border-radius:20px;
   font-size:14px;
 }
 
-/* BUTTONS */
 .buttons{
   margin:30px 0;
 }
-
 .btn{
-  padding:14px 34px;
+  display:inline-block;
+  padding:14px 26px;
   border-radius:30px;
+  font-weight:bold;
+  text-decoration:none;
   margin:0 8px;
-  font-weight:700;
-  text-decoration:none;
 }
+.whatsapp{background:#25d366;color:#000}
+.github{background:#4fc3ff;color:#000}
 
-.whatsapp{
-  background:#25d366;
-  color:#000;
+/* ===== PROJECTS ===== */
+.projects{
+  margin-top:40px;
 }
-
-.github{
-  background:#4fc3ff;
-  color:#000;
-}
-
-/* PROJECTS */
 .projects h3{
-  margin:40px 0 14px;
-  font-size:22px;
   color:#4fc3ff;
+  margin-bottom:15px;
 }
-
-.projects ul{
-  list-style:none;
-}
-
-.projects li{
-  margin:6px 0;
-}
-
 .projects a{
-  color:#9fdcff;
+  display:block;
+  color:#4fc3ff;
   text-decoration:none;
+  margin:6px 0;
+  opacity:.8;
 }
+.projects a:hover{opacity:1}
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer{
   text-align:center;
   padding:20px;
   font-size:13px;
-  opacity:.75;
+  opacity:.6;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= TOP ================= -->
-<header class="top-bar">
-  <div class="logo"><span>BiU</span></div>
+<!-- BACKGROUND -->
+<canvas id="bgCanvas"></canvas>
 
-  <div class="lang-switch">
-    <button class="active" onclick="setLang('tr')">TR</button>
-    <button onclick="setLang('en')">EN</button>
+<header>
+  <div class="logo">
+    <div class="logo-box">BiU</div>
+  </div>
+  <div class="lang">
+    <button class="active">TR</button>
+    <button>EN</button>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<main class="hero">
-  <h1>BiU</h1>
+<main>
+  <div>
+    <h1>BiU</h1>
+    <h2>Bilgi Teknolojileri & İletişim Uzmanları</h2>
 
-  <h2 data-tr="Bilgi Teknolojileri & İletişim Uzmanları"
-      data-en="Information Technology & Communication Specialists">
-    Bilgi Teknolojileri & İletişim Uzmanları
-  </h2>
+    <p>
+      BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında
+      uzmanlaşmış kurumsal bir teknoloji şirketidir.
+    </p>
 
-  <p data-tr="BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında uzmanlaşmış kurumsal bir teknoloji şirketidir."
-     data-en="BiU is a corporate technology company specialized in software engineering, web development, and automation solutions.">
-    BiU, yazılım mühendisliği, web geliştirme ve otomasyon çözümleri alanlarında uzmanlaşmış kurumsal bir teknoloji şirketidir.
-  </p>
+    <p>
+      Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir
+      sistemler tasarlıyor ve geliştiriyoruz.
+    </p>
 
-  <p data-tr="Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir sistemler tasarlıyor ve geliştiriyoruz."
-     data-en="We design and develop efficient, reliable, and scalable systems for modern needs.">
-    Modern ihtiyaçlara yönelik verimli, güvenilir ve ölçeklenebilir sistemler tasarlıyor ve geliştiriyoruz.
-  </p>
+    <div class="tags">
+      <div class="tag">Yazılım Mühendisliği</div>
+      <div class="tag">Web Geliştirme</div>
+      <div class="tag">Otomasyon</div>
+      <div class="tag">API Entegrasyonu</div>
+      <div class="tag">Sistem Optimizasyonu</div>
+    </div>
 
-  <div class="tags">
-    <span>Yazılım Mühendisliği</span>
-    <span>Web Geliştirme</span>
-    <span>Otomasyon</span>
-    <span>API Entegrasyonu</span>
-    <span>Sistem Optimizasyonu</span>
+    <div class="buttons">
+      <a class="btn whatsapp" href="#">WhatsApp</a>
+      <a class="btn github" href="#">GitHub</a>
+    </div>
+
+    <div class="projects">
+      <h3>Projelerimiz</h3>
+      <a href="https://alikahyakarot.com" target="_blank">alikahyakarot.com</a>
+      <a href="https://ilyaskarot.com" target="_blank">ilyaskarot.com</a>
+      <a href="https://gucluspanzet.com" target="_blank">gucluspanzet.com</a>
+      <a href="https://anahtarpartisakarya.org" target="_blank">anahtarpartisakarya.org</a>
+    </div>
   </div>
-
-  <div class="buttons">
-    <a class="btn whatsapp" href="https://wa.me/" target="_blank">WhatsApp</a>
-    <a class="btn github" href="https://github.com/BiU-it" target="_blank">GitHub</a>
-  </div>
-
-  <section class="projects">
-    <h3 data-tr="Projelerimiz" data-en="Our Projects">Projelerimiz</h3>
-    <ul>
-      <li><a href="https://alikahyakarot.com" target="_blank">alikahyakarot.com</a></li>
-      <li><a href="https://ilyaskarot.com" target="_blank">ilyaskarot.com</a></li>
-      <li><a href="https://gucluspanzet.com" target="_blank">gucluspanzet.com</a></li>
-      <li><a href="https://anahtarpartisakarya.org" target="_blank">anahtarpartisakarya.org</a></li>
-    </ul>
-  </section>
 </main>
 
 <footer>© BiU Ekibi</footer>
 
 <script>
-function setLang(lang){
-  document.querySelectorAll("[data-tr]").forEach(el=>{
-    el.textContent = el.getAttribute("data-"+lang);
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const nodes = [];
+for(let i=0;i<120;i++){
+  nodes.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    v:0.2+Math.random()*0.6,
+    c:Math.random()>0.5?"0":"1"
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(79,195,255,0.25)";
+  ctx.font="12px monospace";
+
+  nodes.forEach(n=>{
+    ctx.fillText(n.c,n.x,n.y);
+    n.y+=n.v;
+    if(n.y>canvas.height){
+      n.y=-10;
+      n.x=Math.random()*canvas.width;
+      n.c=Math.random()>0.5?"0":"1";
+    }
   });
 
-  document.querySelectorAll(".lang-switch button")
-    .forEach(b=>b.classList.remove("active"));
-
-  document.querySelector(
-    ".lang-switch button[onclick=\"setLang('"+lang+"')\"]"
-  ).classList.add("active");
-
-  document.documentElement.lang = lang;
+  requestAnimationFrame(draw);
 }
+draw();
 </script>
 
 </body>
