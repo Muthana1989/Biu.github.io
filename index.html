@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  #bgCanvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.45;
+}
+
 /* ================= RESET ================= */
 *{
   margin:0;
@@ -13,6 +20,57 @@
   box-sizing:border-box;
   font-family: "Segoe UI", sans-serif;
 }
+<canvas id="bgCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const symbols = [];
+const count = 90;
+
+for(let i=0;i<count;i++){
+  symbols.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    v: 0.3 + Math.random()*0.6,
+    char: Math.random()>0.5 ? "0" : "1",
+    r: 1 + Math.random()*2
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  ctx.strokeStyle = "rgba(79,195,255,0.08)";
+  ctx.fillStyle   = "rgba(79,195,255,0.45)";
+  ctx.font = "13px monospace";
+
+  symbols.forEach(s=>{
+    ctx.fillText(s.char, s.x, s.y);
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.stroke();
+
+    s.y += s.v;
+    if(s.y > canvas.height){
+      s.y = -10;
+      s.x = Math.random()*canvas.width;
+      s.char = Math.random()>0.5 ? "0" : "1";
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 /* ================= BACKGROUND ================= */
 body{
